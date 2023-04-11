@@ -1,0 +1,50 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"); */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;1,300&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: antiquewhite;
+  text-align: center;
+  overflow-x: hidden !important;
+    /* font-family: "Fredoka One", cursive; */
+    font-family: 'Poppins', sans-serif;
+}
+
+
+canvas{
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  top: 0;
+  /* left: -125px; */
+  margin-inline: auto;
+  max-width: 89%;
+      z-index: 1;
+}
+video{
+  width: 500px;
+  height: 500px;
+max-width: 89%;
+  margin-inline: auto;
+  z-index: -1;
+}
+@media screen and (max-width:640px) {
+  canvas, video{
+     padding: 0px 1rem;
+     z-index: -1;
+  }
+}
+@layer components{
+  .btn{
+    @apply border px-5 py-3
+  }
+  .badge{
+  @apply  text-xs px-3  rounded-full py-[0.2rem] flex justify-center items-center
+  }
+}
+
+
+
