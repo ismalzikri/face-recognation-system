@@ -1,3 +1,10 @@
+<script setup>
+import { onMounted } from 'vue'
+import { role} from '../composibles/useState'
+import Face from '../components/Face.vue'
+import DefaultLayout from '../layout/defaultLayout.vue'
+</script>
+
 <template>
   <DefaultLayout>
     <section class="w-full px-4 antialiased items-center min-h-screen flex bg">
@@ -23,8 +30,7 @@
                   <p
                     class="mx-auto text-base text-left text-gray-500 sm:max-w-md lg:text-xl md:max-w-3xl font-bold"
                   >
-                    An Attendance system that works by using using facial
-                    recognition
+                    An Attendance system that works by using face recognition ( AI driven)
                   </p>
                   <div
                     class="relative flex flex-col sm:flex-row gap-4 flex-wrap font-extralight"
@@ -146,12 +152,6 @@
     </section>
   </DefaultLayout>
 </template>
-
-<script setup>
-import { role } from '../composibles/useState'
-import Face from '../components/Face.vue'
-import DefaultLayout from '../layout/defaultLayout.vue'
-</script>
 
 <style>
 .outline {

@@ -1,23 +1,27 @@
 import { ref } from 'vue'
+import axios from 'axios'
+import { useRouter } from 'vue-router'
+import { useAlert } from './useNotification'
+import { savedUsers } from './useState'
+import { formatDateString } from './useFormatDate'
 const Webcam = require('../helper/webcam')
 const faceapi = require('../helper/faceApi.min.js')
-import { savedUsers } from './useState'
-import { useAlert } from './useNotification'
-import { useRouter } from 'vue-router'
+
 
 let snappedFace = ref().value
+const newSavedUsers = savedUsers.value
 
-function loadLabeledImages() {
-  if (savedUsers.length == 0) {
-    useAlert().openAlert(
-      'Wajah anda tidak terdaftar terdaftar!'
-    )
+const urlTakeAbsent = 'https://face-recognition-attendance-5dkb.onrender.com/api/v1/take/'
+
+const loadLabeledImages = () => {
+  if (newSavedUsers.length == 0) {
+    useAlert().openAlert('Wajah anda tidak terdaftar!')
     setTimeout(() => {
       window.location.href = '/'
-    }, 1500)
+    }, 1000)
   } else {
     return Promise.all(
-      savedUsers.map(async (label) => {
+      newSavedUsers.map(async (label) => {
         const descriptions = []
         for (let i = 1; i <= 2; i++) {
           const queryImage = new Image()
@@ -35,7 +39,6 @@ function loadLabeledImages() {
 }
 
 const scanImg = async (router) => {
-
   const image = new Image()
   image.src = snappedFace
 
@@ -68,23 +71,64 @@ const scanImg = async (router) => {
         label: result.toString(),
       })
       drawBox.draw(canvas)
-      savedUsers.map(async (label, index) => {
-        if (label.name === result._label) {
-          savedUsers[index].date.push(
-            `${new Date().toLocaleTimeString()} of ${new Date().toLocaleDateString()}`
-          )
-          useAlert().openAlert(`${result._label}, Absen kamu berhasil terima kasih`)
-          canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
-          router.push('/')
+
+      const sameLabel = newSavedUsers.find(label => label.name == result._label)
+
+      if (sameLabel) {
+        const now = new Date();
+        const dayOfWeek = now.getDay(); // get current day of the week (0-6, 0 is Sunday)
+
+        const hours = now.getHours();
+        let closingTime = 17; // default closing time
+
+        if (dayOfWeek === 5) { // if it's Friday
+          closingTime = 16; // set closing time to 4:00 PM
         }
-        else {
-          canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
-          useAlert().openAlert('User tidak di temukan')
-          setTimeout(() => {
-            window.location.href = '/'
-          }, 1500)
+
+        if (hours >= 6 && hours < closingTime) {
+          axios
+            .post(urlTakeAbsent + 'in', {
+              user_id: sameLabel._id
+            })
+            .then(() => {
+              useAlert().openAlert(`User: ${result._label} absen kamu berhasil`)
+              Webcam.reset()
+              setTimeout(() => {
+                window.location.href = '/'
+              }, 1200)
+            })
+            .catch((error) => {
+              useAlert().openAlert(`${error.response.data.message} silahkan coba lagi!`)
+              setTimeout(() => {
+                window.location.href = '/'
+              }, 1200)
+            })
+        } else {
+          axios
+            .post(urlTakeAbsent + 'out', {
+              user_id: sameLabel._id,
+              date: formatDateString(new Date, 'full-type')
+            })
+            .then((resp) => {
+              globalState.isLoadingButton.value = false
+              useAlert().openAlert(`User: ${resp.data.data.name} berhasil di daftarkan`)
+              Webcam.reset()
+              setTimeout(() => {
+                window.location.href = '/'
+              }, 1200)
+            })
+            .catch((error) => {
+              console.log(error)
+            })
         }
-      })
+      } else {
+        useAlert().openAlert('silahkan coba lagi!')
+        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+
+        setTimeout(() => {
+          window.location.href = '/'
+        }, 500)
+      }
     })
   }
 }
