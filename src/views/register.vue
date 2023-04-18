@@ -1,3 +1,20 @@
+<script setup>
+import SavePerson from '../components/SavePerson.vue'
+import DefaultLayout from '../layout/defaultLayout.vue'
+import { onMounted, onUpdated } from 'vue'
+import { mountWebcam } from '../composibles/useWebcam'
+import { loadModels } from '../composibles/useFaceapi'
+import { ScanFace } from '../composibles/useVideo'
+import { globalState } from '../composibles/useState'
+
+onUpdated(() => {
+  globalState.registerState.value = 0
+})
+onMounted(mountWebcam)
+onMounted(loadModels)
+onMounted(ScanFace)
+</script>
+
 <template>
   <DefaultLayout>
     <div v-if="globalState.registerState.value == 0">
@@ -23,23 +40,6 @@
     <SavePerson v-else />
   </DefaultLayout>
 </template>
-
-<script setup>
-import SavePerson from '../components/SavePerson.vue'
-import DefaultLayout from '../layout/defaultLayout.vue'
-import { onMounted, onUpdated } from 'vue'
-import { mountWebcam } from '../composibles/useWebcam'
-import { loadModels } from '../composibles/useFaceapi'
-import { ScanFace } from '../composibles/useVideo'
-import { globalState } from '../composibles/useState'
-
-onUpdated(() => {
-  globalState.registerState.value = 0
-})
-onMounted(mountWebcam)
-onMounted(loadModels)
-onMounted(ScanFace)
-</script>
 
 <style scoped>
 .web-cam {

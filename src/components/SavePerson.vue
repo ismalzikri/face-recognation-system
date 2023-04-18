@@ -14,8 +14,8 @@
       Nim:
       <input
         type="text"
-        v-model="globalState.capturedNim.value"
-        placeholder="Nim"
+        v-model="globalState.capturedNip.value"
+        placeholder="No induk"
         class="p-2 py-1 border-2 border-indigo-600 rounded bg-transparent z-50"
         required
       />
@@ -70,7 +70,7 @@
       type="submit"
       class="text-center w-full px-6 py-3 mt-3 text-lg text-white bg-indigo-600 rounded-md sm:mb-0 hover:bg-indigo-700"
     >
-      Register
+      {{ globalState.isLoadingButton.value ? 'Loading...' : 'Register' }}
     </button>
   </form>
 </template>
@@ -85,6 +85,8 @@ import {
 
 const face = highestDetection()
 const save = async () => {
+  globalState.isLoadingButton.value = true
   await saveCapturedUser()
+  globalState.isLoadingButton.value = false
 }
 </script>

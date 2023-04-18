@@ -1,13 +1,14 @@
-import { useStorage } from '@vueuse/core'
 import { ref } from 'vue'
+import { useStorage } from '@vueuse/core'
 import { useAlert } from './useNotification'
 const Webcam = require('../helper/webcam')
 import axios from 'axios'
 
 export const globalState = {
+  isLoadingButton: ref(false),
   registerState: ref(0),
   capturedFaces: ref([]),
-  capturedNim: ref(''),
+  capturedNip: ref(''),
   capturedUserName: ref(''),
   capturedCodeSource: ref(''),
   capturedSource: ref(''),
@@ -18,7 +19,7 @@ export const authAccount = {
   password: ref<string>('@dministrator'),
 }
 
-export const savedUsers = useStorage('savedUsers', []).value as any
+export const savedUsers = useStorage('savedUsers', [])
 
 export const role = useStorage<string>('role', '')
 
@@ -37,36 +38,22 @@ export const highestDetection = () => {
 
 export const saveCapturedUser = async () => {
   const choosen = highestDetection() as any
-
-  // savedUsers.push({
-  //   kodemapel: globalState.capturedCodeSource,
-  //   mapel: globalState.capturedSource,
-  //   nim: globalState.capturedNim,
-  //   name: globalState.capturedUserName.value,
-  //   img: choosen.img,
-  //   mood: choosen.mood,
-  //   date:[]
-  // })
-
-  // useAlert().openAlert(`User: ${globalState.capturedUserName.value} berhasil di daftarkan`)
-  // Webcam.reset()
-  // setTimeout(() => {
-  //   window.location.href = '/'
-  // }, 1200)
-
+  
+  globalState.isLoadingButton.value = true
   axios
     .post(
       'https://face-recognition-attendance-5dkb.onrender.com/api/v1/teacher/add',
       {
         kodemapel: globalState.capturedCodeSource.value,
         mapel: globalState.capturedSource.value,
-        nim: globalState.capturedNim.value,
+        no_induk: globalState.capturedNip.value,
         name: globalState.capturedUserName.value,
-        image: choosen.img,
+        image: choosen.image,
         mood: choosen.mood,
       }
     )
     .then((resp) => {
+      globalState.isLoadingButton.value = false
       useAlert().openAlert(`User: ${resp.data.data.name} berhasil di daftarkan`)
       Webcam.reset()
       setTimeout(() => {

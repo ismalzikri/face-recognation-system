@@ -1,3 +1,28 @@
+<script setup>
+import DefaultLayout from '../layout/defaultLayout.vue'
+import { onMounted, onUpdated } from 'vue'
+import { mountWebcam } from '../composibles/useWebcam'
+import { loadModels } from '../composibles/useFaceapi'
+import { SnapFace} from '../composibles/useAttendance'
+import { globalState, savedUsers } from '../composibles/useState'
+import { useFetch } from '../composibles/useFetch'
+
+const urlUserList = 'https://face-recognition-attendance-5dkb.onrender.com/api/v1/teacher/list'
+
+const geUserList = async () => {
+  const { data } = await useFetch(urlUserList)
+  savedUsers.value = data.value.data
+  SnapFace()
+}
+
+onMounted(() => {
+  globalState.registerState.value = 0
+  mountWebcam()
+  geUserList()
+  loadModels()
+})
+</script>
+
 <template>
   <DefaultLayout>
     <div>
@@ -24,22 +49,6 @@
     </div>
   </DefaultLayout>
 </template>
-
-<script setup>
-import DefaultLayout from '../layout/defaultLayout.vue'
-import { onMounted, onUpdated } from 'vue'
-import { mountWebcam } from '../composibles/useWebcam'
-import { loadModels } from '../composibles/useFaceapi'
-import { SnapFace } from '../composibles/useAttendance'
-import { globalState } from '../composibles/useState'
-
-onMounted(() => {
-  globalState.registerState.value = 0
-})
-onMounted(mountWebcam)
-onMounted(loadModels)
-onMounted(SnapFace)
-</script>
 
 <style scoped>
 .web-cam {
