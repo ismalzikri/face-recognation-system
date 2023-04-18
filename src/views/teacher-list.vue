@@ -1,4 +1,5 @@
 <script setup>
+import axios from 'axios'
 import { onMounted, ref } from 'vue'
 import { useFetch } from '@/composibles/useFetch'
 import { savedUsers } from '@/composibles/useState'
@@ -8,11 +9,9 @@ const isSeeAction = ref(null)
 const start_date = ref('')
 const end_date = ref('')
 
-// const handleDelete = async (id) => {
-//   const { resp } 
-// }
+const URL = 'https://face-recognition-attendance-5dkb.onrender.com/api/v1/teacher/delete/'
 
-onMounted(async () => {
+const getListTeacher = async () => {
   isLoading.value = true
   const { data } = await useFetch(
     'https://face-recognition-attendance-5dkb.onrender.com/api/v1/teacher/list'
@@ -20,6 +19,21 @@ onMounted(async () => {
 
   savedUsers.value = data.value.data
   isLoading.value = false
+}
+
+const handleDelete = (id) => {
+  axios
+    .delete(URL + id)
+    .then((resp) => {
+      getListTeacher()
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
+
+onMounted(async () => {
+  getListTeacher()
 })
 </script>
 
@@ -150,7 +164,7 @@ onMounted(async () => {
                         <div
                           v-if="isSeeAction === item._id"
                           class="absolute bottom-0 left-2 py-2 px-3 shadow-lg font-medium text-red-500 bg-white rounded-md"
-                          @click="handleDelete(item_id)"
+                          @click="handleDelete(item._id)"
                         >
                           Delete
                         </div>

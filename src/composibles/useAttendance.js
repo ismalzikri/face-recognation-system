@@ -95,7 +95,7 @@ const scanImg = async (router) => {
               Webcam.reset()
               setTimeout(() => {
                 window.location.href = '/'
-              }, 1200)
+              }, 1500)
             })
             .catch((error) => {
               useAlert().openAlert(`${error.response.data.message} silahkan coba lagi!`)
