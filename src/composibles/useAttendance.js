@@ -7,13 +7,13 @@ import { formatDateString } from './useFormatDate'
 const Webcam = require('../helper/webcam')
 const faceapi = require('../helper/faceApi.min.js')
 
-
 let snappedFace = ref().value
 const newSavedUsers = savedUsers.value
 
-const urlTakeAbsent = 'https://face-recognition-attendance-5dkb.onrender.com/api/v1/take/'
+const urlTakeAbsent =
+  'https://face-recognition-attendance-5dkb.onrender.com/api/v1/take/'
 
-const loadLabeledImages = () => {
+function loadLabeledImages() {
   if (newSavedUsers.length == 0) {
     useAlert().openAlert('Wajah anda tidak terdaftar!')
     setTimeout(() => {
@@ -72,23 +72,26 @@ const scanImg = async (router) => {
       })
       drawBox.draw(canvas)
 
-      const sameLabel = newSavedUsers.find(label => label.name == result._label)
+      const sameLabel = newSavedUsers.find(
+        (label) => label.name == result._label
+      )
 
       if (sameLabel) {
-        const now = new Date();
-        const dayOfWeek = now.getDay(); // get current day of the week (0-6, 0 is Sunday)
+        const now = new Date()
+        const dayOfWeek = now.getDay() // get current day of the week (0-6, 0 is Sunday)
 
-        const hours = now.getHours();
-        let closingTime = 17; // default closing time
+        const hours = now.getHours()
+        let closingTime = 17 // default closing time
 
-        if (dayOfWeek === 5) { // if it's Friday
-          closingTime = 16; // set closing time to 4:00 PM
+        if (dayOfWeek === 5) {
+          // if it's Friday
+          closingTime = 16 // set closing time to 4:00 PM
         }
 
         if (hours >= 6 && hours < closingTime) {
           axios
             .post(urlTakeAbsent + 'in', {
-              user_id: sameLabel._id
+              user_id: sameLabel._id,
             })
             .then(() => {
               useAlert().openAlert(`User: ${result._label} absen kamu berhasil`)
@@ -98,7 +101,9 @@ const scanImg = async (router) => {
               }, 1500)
             })
             .catch((error) => {
-              useAlert().openAlert(`${error.response.data.message} silahkan coba lagi!`)
+              useAlert().openAlert(
+                `${error.response.data.message} silahkan coba lagi!`
+              )
               setTimeout(() => {
                 window.location.href = '/'
               }, 1200)
@@ -107,18 +112,25 @@ const scanImg = async (router) => {
           axios
             .post(urlTakeAbsent + 'out', {
               user_id: sameLabel._id,
-              date: formatDateString(new Date, 'full-type')
+              date: formatDateString(new Date(), 'full-type'),
             })
             .then((resp) => {
               globalState.isLoadingButton.value = false
-              useAlert().openAlert(`User: ${resp.data.data.name} berhasil di daftarkan`)
+              useAlert().openAlert(
+                `User: ${resp.data.data.name} absen keluar berhasil!`
+              )
               Webcam.reset()
               setTimeout(() => {
                 window.location.href = '/'
               }, 1200)
             })
             .catch((error) => {
-              console.log(error)
+              useAlert().openAlert(
+                `${error.response.data.message} silahkan coba lagi!`
+              )
+              setTimeout(() => {
+                window.location.href = '/'
+              }, 1200)
             })
         }
       } else {
