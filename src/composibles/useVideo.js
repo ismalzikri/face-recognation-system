@@ -75,7 +75,7 @@ export const ScanFace = () => {
           document.querySelector('#alert').style.color = 'red'
           document.querySelector(
             '#alert'
-          ).innerHTML = `Can't find a Face, Please Adjust <br>  Captured ${count} out of 3`
+          ).innerHTML = `Tidak Dapat Menemukan Wajah, Harap Sesuaikan <br>  Gambar ${count} dari 3`
         }
       }
     }, 1000)

@@ -127,7 +127,7 @@
 			></path>
 		</svg>
 
-		<p class="block">Caching ML models, this might take a while 😅</p>q
+		<p class="block">Caching ML models, Mohon Tunggu Sebentar</p>q
 	</div>
 </template>
 
