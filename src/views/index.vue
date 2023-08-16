@@ -1,13 +1,20 @@
 <script setup>
 import { onMounted } from 'vue'
-import { role} from '../composibles/useState'
+import { role } from '../composibles/useState'
 import Face from '../components/Face.vue'
 import DefaultLayout from '../layout/defaultLayout.vue'
 </script>
 
 <template>
   <DefaultLayout>
-    <section class="w-full px-4 antialiased items-center min-h-screen flex bg">
+    <button
+      v-if="role === 'headmaster'"
+      class="fixed top-5 right-5 lg:right-20 text-xs lg:text-sm text-white bg-indigo-600 p-2.5 rounded-md"
+      @click="role.value = ''"
+    >
+      Logout
+    </button>
+    <section class="w-full px-4 antialiased items-center min-h-screen flex">
       <div class="mx-auto container mt-12 md:mt-0">
         <section class="px-2 py-4 md:px-0">
           <div class="container items-center px-8 mx-auto xl:px-5">
@@ -30,7 +37,8 @@ import DefaultLayout from '../layout/defaultLayout.vue'
                   <p
                     class="mx-auto text-base text-left text-gray-500 sm:max-w-md lg:text-xl md:max-w-3xl font-bold"
                   >
-                    An Attendance system that works by using face recognition ( AI driven)
+                    An Attendance system that works by using face recognition (
+                    AI driven)
                   </p>
                   <div
                     class="relative flex flex-col sm:flex-row gap-4 flex-wrap font-extralight"
