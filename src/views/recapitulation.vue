@@ -136,7 +136,7 @@ onMounted(async () => {
               <td
                 class="px-5 py-5 border-b border-gray-200 bg-white text-sm whitespace-nowrap"
               >
-                <p class="text-gray-900">-</p>
+                <p class="text-gray-900">{{ item.late }}</p>
               </td>
               <td
                 class="px-5 py-5 border-b border-gray-200 bg-white text-sm whitespace-nowrap"
