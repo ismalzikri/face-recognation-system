@@ -10,7 +10,7 @@ import DefaultLayout from '../layout/defaultLayout.vue'
     <button
       v-if="role === 'headmaster'"
       class="fixed top-5 right-5 lg:right-20 text-xs lg:text-sm text-white bg-indigo-600 p-2.5 rounded-md"
-      @click="role.value = ''"
+      @click="role = ''"
     >
       Logout
     </button>
