@@ -11,11 +11,11 @@
     <div
       class="border border-indigo-600 w-full p-5 max-w-[40rem] h-auto overflow-hidden md:text-lg rounded-md shadow-xl flex flex-col justify-center items-center mt-5"
     >
-      Nim:
+      N I P
       <input
         type="text"
         v-model="globalState.capturedNip.value"
-        placeholder="No induk"
+        placeholder="No identitas pegawai"
         class="p-2 py-1 border-2 border-indigo-600 rounded bg-transparent z-50"
         required
       />
@@ -23,7 +23,7 @@
     <div
       class="border border-indigo-600 w-full p-5 max-w-[40rem] h-auto overflow-hidden md:text-lg rounded-md shadow-xl flex flex-col justify-center items-center mt-5"
     >
-      Name:
+      Nama:
       <input
         type="text"
         v-model="globalState.capturedUserName.value"
@@ -35,11 +35,11 @@
     <div
       class="border border-indigo-600 w-full p-5 max-w-[40rem] h-auto overflow-hidden md:text-lg rounded-md shadow-xl flex flex-col justify-center items-center mt-5"
     >
-      Kode Mapel:
+      Jabatan:
       <input
         type="text"
         v-model="globalState.capturedCodeSource.value"
-        placeholder="Kode mapel"
+        placeholder="jabatan"
         class="p-2 py-1 border-2 border-indigo-600 rounded bg-transparent z-50"
         required
       />
@@ -47,11 +47,11 @@
     <div
       class="border border-indigo-600 w-full p-5 max-w-[40rem] h-auto overflow-hidden md:text-lg rounded-md shadow-xl flex flex-col justify-center items-center mt-5"
     >
-      Mapel:
+      Golongan:
       <input
         type="text"
         v-model="globalState.capturedSource.value"
-        placeholder="Mapel"
+        placeholder="Golongan"
         class="p-2 py-1 border-2 border-indigo-600 rounded bg-transparent z-50"
         required
       />
@@ -59,13 +59,9 @@
     <div
       class="border border-indigo-600 w-full p-5 max-w-[40rem] h-auto overflow-hidden md:text-lg rounded-md shadow-xl flex flex-col justify-center items-center mt-5"
     >
-      Face Certainty : {{ face.detection }}
+      Ketepatan Wajah : {{ face.detection }}
     </div>
-    <div
-      class="border border-indigo-600 w-full p-5 max-w-[40rem] h-auto overflow-hidden md:text-lg rounded-md shadow-xl flex flex-col justify-center items-center mt-5"
-    >
-      User's Mood : {{ face.mood }}
-    </div>
+    
     <button
       type="submit"
       class="text-center w-full px-6 py-3 mt-3 text-lg text-white bg-indigo-600 rounded-md sm:mb-0 hover:bg-indigo-700"

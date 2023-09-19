@@ -40,7 +40,7 @@ onMounted(async () => {
 <template>
   <DefaultLayout>
     <div class="p-4 mt-12">
-      <h1 class="text-2xl uppercase mb-12">Daftar Nama Guru</h1>
+      <h1 class="text-2xl uppercase mb-12">Daftar Nama Guru dan Pegawai</h1>
       <div class="container mx-auto px-[unset] lg:px-28">
         <div
           class="flex flex-col lg:items-center lg:flex-row gap-5 text-left rounded-lg"
@@ -61,19 +61,14 @@ onMounted(async () => {
               <span class="whitespace-nowrap text-white"
                 >Rekapitulasi Absensi</span
               >
-              <img
-                width="18"
-                height="18"
-                src="https://caribarang.id/icons/systems/arrow_right.png"
-                alt="arrow-right-icon"
-              />
+              
             </router-link>
           </div>
         </div>
         <div class="py-8">
           <div>
             <div
-              class="inline-block w-full shadow-md rounded-lg overflow-x-scroll"
+            class="container mx-auto px-[unset] lg:px-50"
             >
               <table v-if="!isLoading" class="min-w-full leading-normal">
                 <thead>
@@ -81,28 +76,24 @@ onMounted(async () => {
                     <th
                       class="py-3 whitespace-nowrap border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
                     >
-                      No.induk
+                      N I P
                     </th>
                     <th
                       class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
                     >
-                      Kode Mapel
+                      Jabatan
                     </th>
                     <th
                       class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
                     >
-                      Mapel
+                      Golongan
                     </th>
                     <th
                       class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
                     >
-                      Name
+                      Nama
                     </th>
-                    <th
-                      class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                    >
-                      Mood
-                    </th>
+                    
                     <th
                       class="py-3 border-b-2 border-gray-200 bg-gray-100"
                     ></th>
@@ -140,11 +131,7 @@ onMounted(async () => {
                         </p>
                       </div>
                     </td>
-                    <td
-                      class="py-5 border-b border-gray-200 bg-white text-sm whitespace-nowrap"
-                    >
-                      <p class="text-gray-900">{{ item.mood }}</p>
-                    </td>
+                   
                     <td
                       class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right relative"
                     >

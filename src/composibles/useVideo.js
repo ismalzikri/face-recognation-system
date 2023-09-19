@@ -59,23 +59,23 @@ export const ScanFace = () => {
         faceapi.draw.drawDetections(canvas, resizedDetections)
         faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
         if (resizedDetections) {
-          if (count < 3) saveFace(resizedDetections)
+          if (count < 10) saveFace(resizedDetections)
           document.querySelector('#alert').style.color = 'green'
           document.querySelector(
             '#alert'
-          ).innerHTML = `Face found, Captured ${count} out of 3`
-          if (count >= 3) {
+          ).innerHTML = `Face found, Captured ${count} out of 10`
+          if (count >= 10) {
             await clearInterval(recog)
             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
             globalState.registerState.value++
           }
         }
       } catch {
-        if (count < 3) {
+        if (count < 10) {
           document.querySelector('#alert').style.color = 'red'
           document.querySelector(
             '#alert'
-          ).innerHTML = `Tidak Dapat Menemukan Wajah, Harap Sesuaikan <br>  Gambar ${count} dari 3`
+          ).innerHTML = `Tidak Dapat Menemukan Wajah, Harap Sesuaikan <br>  Gambar ${count} dari 10`
         }
       }
     }, 1000)

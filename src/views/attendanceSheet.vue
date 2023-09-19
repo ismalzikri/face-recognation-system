@@ -49,14 +49,14 @@ onMounted(async () => {
 <template>
   <DefaultLayout>
     <div class="p-4 mt-12">
-      <h1 class="text-2xl uppercase mb-12">Daftar Kehadiran Guru</h1>
-      <div class="container mx-auto px-[unset] lg:px-28">
+      <h1 class="text-2xl uppercase mb-12">Daftar Kehadiran Guru dan Pegawai</h1>
+      <div class="container mx-auto px-[unset] lg:px-50">
         <form
           class="flex flex-col lg:items-end lg:flex-row gap-5 bg-white text-left rounded-lg p-4"
           @submit.prevent="handleFilter"
         >
           <label class="flex flex-col font-medium">
-            Filter By Date
+            Filter Menurut Tanggal
             <div class="mt-3 flex gap-2 items-center">
               <input
                 v-model="start_date"
@@ -74,7 +74,7 @@ onMounted(async () => {
             </div>
           </label>
           <label class="w-full flex flex-col font-medium">
-            Filter By Status
+            Filter Menurut Status
             <select
               class="mt-3 sm:text-sm border rounded-md w-[300px] h-full px-3 py-3"
             >
@@ -91,25 +91,20 @@ onMounted(async () => {
               Filter
             </button>
           </div>
-          <div>
+          <div style="padding-left: 2%;">
             <router-link
               to="/teacher-list"
-              class="w-[70%] lg:w-full flex gap-2 items-center bg-[#004B9C] py-2.5 pr-8 pl-5 rounded-md"
+              class="w-[70%] lg:w-full flex gap-2 items-center bg-[#004B9C] py-2.5 pr-6 pl-5 rounded-md"
             >
-              <span class="whitespace-nowrap text-white">Daftar nama guru</span>
-              <img
-                width="18"
-                height="18"
-                src="https://caribarang.id/icons/systems/arrow_right.png"
-                alt=""
-              />
+              <span class="whitespace-nowrap text-white">Daftar Nama guru</span>
+              
             </router-link>
           </div>
         </form>
         <div class="py-8">
           <div>
             <div
-              class="inline-block w-full shadow-md rounded-lg overflow-x-scroll"
+              class="container mx-auto px-[unset] lg:px-50"
             >
               <table class="min-w-full leading-normal">
                 <thead>
@@ -117,38 +112,34 @@ onMounted(async () => {
                     <th
                       class="py-3 pl-5 whitespace-nowrap border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
                     >
-                      No.induk
+                      N I P
                     </th>
                     <th
                       class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
                     >
-                      Kode Mapel
+                      Jabatan
                     </th>
                     <th
                       class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
                     >
-                      Mapel
+                      Golongan
                     </th>
                     <th
                       class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
                     >
-                      Name
+                      Nama
                     </th>
                     <th
                       class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
                     >
-                      Jam masuk
+                      Jam Masuk
                     </th>
                     <th
                       class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
                     >
-                      Jam keluar
+                      Jam Keluar
                     </th>
-                    <th
-                      class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                    >
-                      Mood
-                    </th>
+                    
                     <th
                       class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
                     >
@@ -202,11 +193,7 @@ onMounted(async () => {
                         {{ item.exitTime ? formattedTime(item.exitTime) : '-' }}
                       </p>
                     </td>
-                    <td
-                      class="px-5 py-5 border-b border-gray-200 bg-white text-sm whitespace-nowrap"
-                    >
-                      <p class="text-gray-900">{{ item.mood }}</p>
-                    </td>
+                   
                     <td
                       class="px-5 py-5 border-b border-gray-200 bg-white text-sm"
                     >
@@ -223,7 +210,7 @@ onMounted(async () => {
                           class="absolute inset-0 opacity-50 rounded-full"
                         ></span>
                         <span class="relative capitalize">{{
-                          formattedTime(item.entryTime) > 8 ? 'Telat' : 'Hadir'
+                          formattedTime(item.entryTime) > 8 ? 'Terlambat' : 'Hadir'
                         }}</span>
                       </span>
                     </td>

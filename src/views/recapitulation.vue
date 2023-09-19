@@ -40,11 +40,11 @@ onMounted(async () => {
 
 <template>
   <div class="mt-20">
-    <h2 class="font-medium capitalize text-2xl">Rekapitulasi kehadiran guru</h2>
+    <h1 class="text-2xl uppercase mb-12">Rekapitulasi Kehadiran Guru dan Pegawai</h1>
     <div class="container mx-auto px-[unset] lg:px-28 mt-14">
       <form @submit.prevent="handleFilter" class="flex items-end gap-6">
         <label class="flex flex-col gap-2 items-start">
-          Filter by Month
+          Filter Menurut Bulan
           <input v-model="month" class="rounded-lg p-2" type="month" />
         </label>
         <div>
@@ -56,8 +56,9 @@ onMounted(async () => {
           </button>
         </div>
       </form>
+      <br>
       <div
-        class="inline-block w-full shadow-md rounded-lg overflow-x-scroll mt-8"
+        class="container mx-auto px-[unset] lg:px-50"
       >
         <table class="min-w-full leading-normal">
           <thead>
@@ -65,100 +66,92 @@ onMounted(async () => {
               <th
                 class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
               >
-                No.induk
+                N I P
               </th>
               <th
                 class="py-3 pl-5 whitespace-nowrap border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
               >
-                Kode Mapel
+                Jabatan
               </th>
               <th
                 class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
               >
-                Mapel
+                Golongan
               </th>
               <th
                 class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
               >
-                Name
+                Nama
               </th>
+              
               <th
                 class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
               >
-                Mood
-              </th>
-              <th
-                class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
-              >
-                Total telat
-              </th>
-              <th
-                class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
-              >
-                Total Hadir
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item, index) in recap" :key="index">
-              <td
-                class="px-5 py-5 border-b border-gray-200 bg-white whitespace-nowrap text-sm"
-              >
-                {{ item.no_induk }}
-              </td>
-              <td
-                class="px-5 py-5 border-b border-gray-200 bg-white whitespace-nowrap text-sm"
-              >
-                {{ item.kodemapel }}
-              </td>
-              <td
-                class="px-5 py-5 border-b border-gray-200 bg-white whitespace-nowrap text-sm"
-              >
-                {{ item.mapel }}
-              </td>
-              <td
-                class="px-5 py-5 border-b border-gray-200 bg-white whitespace-nowrap text-sm"
-              >
-                <div class="flex justify-center items-center gap-3">
-                  <div class="flex-shrink-0 w-10 h-10">
-                    <img class="w-full h-full rounded-full" :src="item.image" />
-                  </div>
-                  <p class="text-gray-900 whitespace-no-wrap">
-                    {{ item.name }}
-                  </p>
+              Total Terlambat / Bulan
+            </th>
+            <th
+              class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
+            >
+              Total Hadir / Hari Kerja
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in recap" :key="index">
+            <td
+              class="px-5 py-5 border-b border-gray-200 bg-white whitespace-nowrap text-sm"
+            >
+              {{ item.no_induk }}
+            </td>
+            <td
+              class="px-5 py-5 border-b border-gray-200 bg-white whitespace-nowrap text-sm"
+            >
+              {{ item.kodemapel }}
+            </td>
+            <td
+              class="px-5 py-5 border-b border-gray-200 bg-white whitespace-nowrap text-sm"
+            >
+              {{ item.mapel }}
+            </td>
+            <td
+              class="px-5 py-5 border-b border-gray-200 bg-white whitespace-nowrap text-sm"
+            >
+              <div class="flex justify-center items-center gap-3">
+                <div class="flex-shrink-0 w-10 h-10">
+                  <img class="w-full h-full rounded-full" :src="item.image" />
                 </div>
-              </td>
-              <td
-                class="px-5 py-5 border-b border-gray-200 bg-white text-sm whitespace-nowrap"
-              >
-                <p class="text-gray-900">{{ item.mood }}</p>
-              </td>
-              <td
-                class="px-5 py-5 border-b border-gray-200 bg-white text-sm whitespace-nowrap"
-              >
-                <p class="text-gray-900">-</p>
-              </td>
-              <td
-                class="px-5 py-5 border-b border-gray-200 bg-white text-sm whitespace-nowrap"
-              >
-                <p class="text-gray-900 font-semibold">{{ item.total }}</p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div
-          v-if="isLoading && recap.length == 0"
-          class="bg-white p-3 font-medium"
-        >
-          Loading ...
-        </div>
-        <div
-          v-if="!isLoading && recap.length < 1"
-          class="bg-white p-3 font-medium"
-        >
-          Belum ada data absen hari ini
-        </div>
+                <p class="text-gray-900 whitespace-no-wrap">
+                  {{ item.name }}
+                </p>
+              </div>
+            </td>
+            
+            <td
+              class="px-5 py-5 border-b border-gray-200 bg-white text-sm whitespace-nowrap"
+            >
+              <p class="text-gray-900">{{ item.late }}</p>
+            </td>
+            <td
+              class="px-5 py-5 border-b border-gray-200 bg-white text-sm whitespace-nowrap"
+            >
+              <p class="text-gray-900 font-semibold">{{ item.total }}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+        v-if="isLoading && recap.length == 0"
+        class="bg-white p-3 font-medium"
+      >
+        Loading ...
+      </div>
+      <div
+        v-if="!isLoading && recap.length < 1"
+        class="bg-white p-3 font-medium"
+      >
+        Belum ada data absen hari ini
       </div>
     </div>
   </div>
+</div>
 </template>

@@ -81,7 +81,7 @@ const scanImg = async (router) => {
         const dayOfWeek = now.getDay() // get current day of the week (0-6, 0 is Sunday)
 
         const hours = now.getHours()
-        let closingTime = 17 // default closing time
+        let closingTime = 15 // default closing time
 
         if (dayOfWeek === 5) {
           // if it's Friday
