@@ -41,7 +41,7 @@ onMounted(async () => {
 <template>
   <div class="mt-20">
     <h2 class="font-medium capitalize text-2xl">Rekapitulasi kehadiran guru</h2>
-    <div class="container mx-auto px-[unset] lg:px-28 mt-14">
+    <div class="container mx-auto px-[unset] lg:px-16 mt-14">
       <form @submit.prevent="handleFilter" class="flex items-end gap-6">
         <label class="flex flex-col gap-2 items-start">
           Filter by Month
@@ -95,6 +95,11 @@ onMounted(async () => {
               <th
                 class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
               >
+                Total telat per menit
+              </th>
+              <th
+                class="py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
+              >
                 Total Hadir
               </th>
             </tr>
@@ -137,6 +142,13 @@ onMounted(async () => {
                 class="px-5 py-5 border-b border-gray-200 bg-white text-sm whitespace-nowrap"
               >
                 <p class="text-gray-900">{{ item.late }}</p>
+              </td>
+              <td
+                class="px-5 py-5 border-b border-gray-200 bg-white text-sm whitespace-nowrap"
+              >
+                <p class="text-gray-900">
+                  {{ item.number_of_late_in_minutes }} menit
+                </p>
               </td>
               <td
                 class="px-5 py-5 border-b border-gray-200 bg-white text-sm whitespace-nowrap"
