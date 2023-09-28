@@ -11,6 +11,17 @@ let recap = ref([])
 const isLoading = ref(false)
 const month = ref('')
 
+// convert minutes late to hours
+const convertMinutesToHours = (minutes) => {
+  if (minutes < 60) {
+    return minutes + ' menit '
+  } else {
+    const hours = Math.floor(minutes / 60)
+    const remainingMinutes = minutes % 60
+    return hours + ' jam ' + remainingMinutes + 'menit'
+  }
+}
+
 const handleFilter = () => {
   const monthly = month.value
   router.replace(`/recapitulation?month=${monthly}`).then(() => {
@@ -41,7 +52,7 @@ onMounted(async () => {
 <template>
   <div class="mt-20">
     <h2 class="font-medium capitalize text-2xl">Rekapitulasi kehadiran guru</h2>
-    <div class="container mx-auto px-[unset] lg:px-16 mt-14">
+    <div class="container mx-auto px-[unset] lg:px-12 mt-14">
       <form @submit.prevent="handleFilter" class="flex items-end gap-6">
         <label class="flex flex-col gap-2 items-start">
           Filter by Month
@@ -147,7 +158,7 @@ onMounted(async () => {
                 class="px-5 py-5 border-b border-gray-200 bg-white text-sm whitespace-nowrap"
               >
                 <p class="text-gray-900">
-                  {{ item.number_of_late_in_minutes }} menit
+                  {{ convertMinutesToHours(item.number_of_late_in_minutes) }}
                 </p>
               </td>
               <td
