@@ -134,23 +134,22 @@ import DefaultLayout from '../layout/defaultLayout.vue'
                 <div
                   class="w-full h-auto overflow-hidden py-2 rounded-md shadow-xl sm:rounded-2xl flex flex-col justify-center items-center mt-5"
                 >
-                  <span class="font-bold text-2xl">SDN 060852</span>
-                  <!-- <div class="flex gap-4 text-3xl mt-5">
+                  <div class="flex gap-4 text-3xl mt-5">
                     <a
-                      href="https://github.com/Laravel007"
+                      href="https://github.com/ismalzikri/face-recognation-system"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       <i class="lab la-github"></i>
                     </a>
                     <a
-                      href="https://www.instagram.com/ismalzikri/"
+                      href="https://twitter.com/ZikriIsmal"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <i class="lab la-instagram"></i>
+                      <i class="lab la-twitter"></i>
                     </a>
-                  </div> -->
+                  </div>
                 </div>
               </div>
             </div>
